@@ -6,12 +6,10 @@ public class Alumno {
 	private double notaEx1;
 	private double notaEx2;
 	private double notaEx3;
-	private int notaEx4;
-	private int notaEx5;
+	private double notaEx4;
+	private double notaEx5;
 	
 	//CONSTRUCTORES
-	public Alumno() {
-	}
 	public Alumno(String nombre, double ex1, double ex2, double ex3, int ex4, int ex5) {
 		this.nombre=nombre;
 		notaEx1=ex1;
@@ -37,10 +35,10 @@ public class Alumno {
 	public double getNotaEx3() {
 		return notaEx3;
 	}
-	public int getNotaEx4() {
+	public double getNotaEx4() {
 		return notaEx4;
 	}
-	public int getNotaEx5() {
+	public double getNotaEx5() {
 		return notaEx5;
 	}
 	
@@ -67,6 +65,10 @@ public class Alumno {
 		this.notaEx4 = notaSinRestar-resta;
 		
 	}
+	
+	public void setNotaEx4(double nota) {
+		notaEx4=nota;
+	}
 	public void setNotaEx5(int aciertos, int fallos) {
 		int resta=0;
 		int notaSinRestar=aciertos*preguntasTest/100;
@@ -74,6 +76,9 @@ public class Alumno {
 		resta=fallos/3;
 		}
 		this.notaEx5 = notaSinRestar-resta;
+	}
+	public void setNotaEx5(double nota) {
+		notaEx4=nota;
 	}
 	
 	
