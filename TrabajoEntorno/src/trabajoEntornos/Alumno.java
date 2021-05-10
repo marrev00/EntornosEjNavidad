@@ -1,25 +1,30 @@
 package trabajoEntornos;
 
+import java.util.*;
+
 public class Alumno {
 	private String nombre;
-	private int preguntasTest=30;
-	private double notaEx1;
-	private double notaEx2;
-	private double notaEx3;
-	private double notaEx4;
-	private double notaEx5;
+	private double notafinal;
+	private int examenesPresentados=0;
+	
+	protected ArrayList <Examen> examenes = new ArrayList ();
+	protected ArrayList <Trabajo> trabajosCurso = new ArrayList();
+	int [] idsExamenesPresentados = new int [5];
+	
+	
+	int examenesHechos=0;
 	
 	//CONSTRUCTORES
-	public Alumno(String nombre, double ex1, double ex2, double ex3, int ex4, int ex5) {
-		this.nombre=nombre;
-		notaEx1=ex1;
-		notaEx2=ex2;
-		notaEx3=ex3;
-		notaEx4=ex4;
-		notaEx5=ex5;
-	}
 	public Alumno(String nombre) {
 		this.nombre=nombre;
+		examenes.add(new ExamenClasico(1));
+		examenes.add(new ExamenClasico(2));
+		examenes.add(new ExamenClasico(3));
+		examenes.add(new ExamenTest(4));
+		examenes.add(new ExamenTest(5));
+		trabajosCurso.add(new Trabajo(1));
+		trabajosCurso.add(new Trabajo(2));
+		trabajosCurso.add(new Trabajo(3));
 	}
 	
 	//GETTERS
@@ -27,59 +32,79 @@ public class Alumno {
 		return nombre;
 	}
 	public double getNotaEx1() {
-		return notaEx1;
+		return examenes.get(0).getNota();
 	}
 	public double getNotaEx2() {
-		return notaEx2;
+		return examenes.get(1).getNota();
 	}
 	public double getNotaEx3() {
-		return notaEx3;
+		return examenes.get(2).getNota();
 	}
 	public double getNotaEx4() {
-		return notaEx4;
+		return examenes.get(3).getNota();
 	}
 	public double getNotaEx5() {
-		return notaEx5;
+		return examenes.get(4).getNota();
+	}
+	public int getExamenesPresentados() {
+		return examenesPresentados;
+	}
+	public int getLengthExamenList() {
+		return examenes.size();
 	}
 	
+	
+	
+	public Examen getExamenAlumno (int id) {
+		return examenes.get(id-1);
+	}
 	//SETTERS
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public void setNotaEx1(double notaEx1) {
-		this.notaEx1 = notaEx1;
-	}
-	public void setNotaEx2(double notaEx2) {
-		this.notaEx2 = notaEx2;
+	
+	public void setExamen (Examen a, int id) {
+		examenes.set(id, a);
+		examenesPresentados++;
 	}
 	
-	public void setNotaEx3(double notaEx3) {
-		this.notaEx3 = notaEx3;
-	}
-	public void setNotaEx4(int aciertos, int fallos) {
-		int resta=0;
-		int notaSinRestar=aciertos*preguntasTest/100;
-		if (fallos>2&&fallos<=preguntasTest) {
-		resta=fallos/3;
+	//METODOS
+	
+	public void printExPresentados () {
+		for (int j=0;j<examenes.size();j++) {
+			if (getExamenAlumno(j+1).getPresentado()) {
+				System.out.println(getExamenAlumno(j+1));
+			}
 		}
-		this.notaEx4 = notaSinRestar-resta;
+	}
+	
+	
+	//IGNORAR EL SIGUIENTE CODIGO. LOS SIGUIENTES METODOS SON BORRADORES. BORRAR SI NO LLEGAN A SERVIR
+	
+	/*public int getIdExamenesPresnetados (int index) {
+	return idsExamenesPresentados[index];
+}*/
+	
+	/*public void printExPresentados () {
+	char [] letras = new char [] {'a','b','c','d','e'};
+	int count=0;
+	checkExPresentados();
+	for (int i=0;i<examenesPresentados;i++) {
+			System.out.println(letras[i]+") Examen Nº "+idsExamenesPresentados[i]);
+			count++;
+	}
+}*/
+	
+	/*public void checkExPresentados () {
+		int index=0;
+		for (int i=0;i<examenes.size();i++) {
+			
+			if (examenes.get(i).getPresentado()==true) {
+				idsExamenesPresentados[index]=examenes.get(i).getIdExamen();
+				index++;
+			}
+		}
 		
-	}
-	
-	public void setNotaEx4(double nota) {
-		notaEx4=nota;
-	}
-	public void setNotaEx5(int aciertos, int fallos) {
-		int resta=0;
-		int notaSinRestar=aciertos*preguntasTest/100;
-		if (fallos>2&&fallos<=preguntasTest) {
-		resta=fallos/3;
-		}
-		this.notaEx5 = notaSinRestar-resta;
-	}
-	public void setNotaEx5(double nota) {
-		notaEx4=nota;
-	}
-	
-	
+		
+	}*/
 }

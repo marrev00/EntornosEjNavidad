@@ -1,23 +1,12 @@
 package trabajoEntornos;
 
-public class ExamenClasico extends Examen{
-	protected double nota;
+public class ExamenClasico extends Examen{	//Pensando en borrar esta clase ya que hace lo mismo que la clase padre
 	
-	public ExamenClasico (Alumno a, double nota, int numExamen) {
-		super(a, nota, numExamen);
-		switch (numExamen) {
-		case 1:
-			a.setNotaEx1(nota);
-			break;
-		case 2:
-			a.setNotaEx2(nota);
-			break;
-		case 3:
-			a.setNotaEx3(nota);
-		}
+	public ExamenClasico (int id) {
+		super(id);
 	}
-	public void setNota (double n) {
-		nota=n;
+	public ExamenClasico (int id, double nota) {
+		super(id, nota);
 	}
 
 }
