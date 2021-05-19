@@ -1,116 +1,129 @@
 package trabajoEntornos;
 
-import java.util.*;
-
+/**
+ * Esta clase simulará ser un examen de tipo test.
+ * @author Marcelo y Rafa
+ *
+ */
 public class ExamenTest extends Examen {
 	//public static Scanner tec=new Scanner (System.in); //BORRAR SI AL FINAL NINGUNO DE LOS METODOS LLEGA A USA EL SCANNER
+	/**
+	 * Atributo fallos.
+	 * Servirá para almacenar el número de preguntas fallidas del examen.
+	 */
 	protected int fallos=0;
+	/**
+	 * Atributo aciertos.
+	 * Servirá para almacenar el número de preguntas acertadas en el examen.
+	 */
 	protected int aciertos=0;
+	/**
+	 * Atributo preguntasTest.
+	 * Almacena el número de preguntas que tiene el examen. No se puede cambiar de valor
+	 */
 	protected final static int preguntasTest=30;
 	
 	//CONSTRUCTORES
+	/**
+	 * Constructor para instanciar un examen de tipo test sin poner la nota, ni poner los aciertos o fallos.
+	 * @param idExamen Recibe el id del examen.
+	 */
 	public ExamenTest (int idExamen) {
 		super(idExamen);
 	}
+	/**
+	 * Constructor para instanciar un examen de tipo test con sus aciertos y fallos.
+	 * @param idExamen Recibirá el id del examen.
+	 * @param aciertos Recibirá las preguntas acertadas.
+	 * @param fallos Recibirá las preguntas falladas.
+	 */
 	public ExamenTest (int idExamen, int aciertos, int fallos) {
 		super(idExamen);
 		double n=0;
 		this.fallos=fallos;
 		this.aciertos=aciertos;
-		nota=calcularNota();
+		calcularNota();
 		presentado=true;
 	}
-	
 	//SETTERS
+	/**
+	 * 
+	 * @param aciertos recibirá el número de preguntas acertadas.
+	 */
 	public void setAciertos(int aciertos) {
 		if (aciertos<=preguntasTest&&aciertos>=0) {
 			this.aciertos=aciertos;
 		}
 		else System.out.println("Valor fuera del limite");
 	}
-	
+	/**
+	 * 
+	 * @param fallos recibirá el número de preguntas fallidas.
+	 */
 	public void setFallos(int fallos) {
-		if (fallos<=(preguntasTest-aciertos)&&fallos>-1) {
+		if (fallos<=(preguntasTest-aciertos)&&fallos>=0) {
 			this.fallos=fallos;
 		}
 		else System.out.println("Valor fuera del limite");
 	}
 	
 	//GETTERS
+	/**
+	 * 
+	 * @return Devolverá el número de aciertos del examen
+	 */
 	public int getAciertos() {
 		return aciertos;
 	}
+	/**
+	 * 
+	 * @return Devolverá el número de preguntas fallidas
+	 */
 	public int getFallos() {
 		return fallos;
 	}
+	/**
+	 * 
+	 * @return Devolverá el número de preguntas en total que tienen los exámenes de tipo test
+	 */
 	public static int getPreguntasTest() {
 		return preguntasTest;
 	}
 	//METODOS
 	
-	
-	public double calcularNota() { //DEVOLVERÁ UN DOUBLE CON LA NOTA CALCULADA EN BASE A LOS ACIERTOS Y FALLOS. 
-								   //TAL VEZ SEA BUENA IDEA HACER QUE PONGA LA NOTA Y YA, EN VEZ DE DEVOLVER LA NOTA SIN HABERLA PUESTO ANTES
+	/**
+	 * Metodo para calcular la nota del examen en base a los aciertos y preguntas falladas en el examen.
+	 * Este método llama también al setter "setNota" para poner la nota calculada.
+	 */
+	public void calcularNota() {  
 		int resta=0;
 		int newNota=0;
-		if (fallos%3==0) {
+		if (fallos>=3) {
 		resta=fallos/3;
 		}
 		newNota=((aciertos-resta)*10)/preguntasTest;
-		return newNota;
+		setNota(newNota);
 	}
-	
-	
-	//IGNORAR ESTOS METODOS. BORRAR SI NO SE PUEDE REUSAR EL CODIGO O YA NO SON USADOS AL FINAL
-	
-	/*public void calcularNota(int aciertos, int fallos) {
-	double newNota=nota;
-	if (aciertos<=preguntasTest&&aciertos>-1) {
-		this.aciertos=aciertos;
-		if (fallos<=(preguntasTest-aciertos)) {
-			int resta=0;
-			if (fallos>2&&fallos<=preguntasTest) {
-			resta=fallos/3;
-			}
-			nota=aciertos-resta;
+	/**
+	 * Metodo para generar aleatoriamente los aciertos y fallos del examen y en base a eso generar una nota
+	 */
+	public void generarNota() {
+		int randomAciertos=r.nextInt(31);
+		int randomFallos=0;
+		if (randomAciertos<30) {
+			int maxFallos=(preguntasTest-randomAciertos)+1;
+			randomFallos=r.nextInt(maxFallos);
 		}
 		
+		setAciertos(randomAciertos);
+		setFallos(randomFallos);
+		calcularNota();
+	}
+	@Override
+	public String toString() {
+		return "Examen Nº "+idExamen+", Nota: "+nota+", Fallos: "+ fallos + ", aciertos: " + aciertos;
 	}
 	
-}*/
-	
-	
-	/*public void setNota (){
-		System.out.println("Introduce Nº de preguntas acertadas");
-		int aciertos=tec.nextInt();
-		int fallos=0;
-		if (aciertos>30||aciertos<0) {
-			System.out.println("Error: los aciertos no pueden ser mayor a las preguntas");
-		}
-		else {
-			
-			if (aciertos<30&&aciertos>0) {
-				System.out.println("Introduce Nº de preguntas fallidas");
-				fallos=tec.nextInt();
-				if (fallos>=(ExamenTest.getPreguntasTest()-aciertos)) {
-					this.aciertos=aciertos;
-					this.fallos=fallos;
-				}
-				else System.out.println("Error: los fallos deben de ser menor a los aciertos");
-			}
-			else {
-				this.aciertos=aciertos;
-			}
-				
-			
-			
-			int resta=0;
-			if (fallos>2&&fallos<=preguntasTest) {
-			resta=fallos/3;
-			}
-			nota=aciertos-resta;
-		}
-	}*/
 	
 	
 

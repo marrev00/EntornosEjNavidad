@@ -2,6 +2,7 @@ package trabajoEntornos;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Random;
 
 /*
  * ESTA CLASE USA EL JAVA TIME PARA PONER FECHAS COMO TAL A LOS EXAMENES
@@ -30,26 +31,64 @@ import java.time.temporal.ChronoUnit;
  * Ej4: System.out.print(fecha3.format(esDateFormat));
  * 
  * 
- * MIRAR LA PAGINA RECOMENDADA ANTERIORMENTE Y MIRAR TAMBIÉN LOS COMENTARIOS MÁS ADELANTE Y LOS QUE PUEDA HABER EN UN FUTURO
  * 
- * 
+ */
+/**
+ * Clase para representar un trabajo
+ * @author Marcelo y Rafa
+ *
  */
 
 public class Trabajo {
-	DateTimeFormatter esDateFormat = DateTimeFormatter.ofPattern("d/M/yyyy");
+	public static Random r=new Random();
+	/**
+	 * Atributo espDateFormat 
+	 * Este atributo de tipo DateTimeFormatter almacena el tipo de formato de fecha que usamos en España
+	 * Este atributo sirve para indicar en que tipo de formato queremos que se muestren las fecha almacenadas en la clase
+	 */
+	DateTimeFormatter espDateFormat = DateTimeFormatter.ofPattern("d/M/yyyy");
+	
 	private int idTrabajo;
+	/**
+	 * Atributo diasRetrasoLimite
+	 * Almacena el número de días máximo que un alumno puede atrasarse en entregar un trabajo
+	 */
 	private final int diasRetrasoLimite=5;
+	/**
+	 * Atributo fechaDeEntrega
+	 * Indica la fecha en que el trabajo debe de estar entregado
+	 */
 	LocalDate fechaDeEntrega;
+	/**
+	 * Atributo fechaLimite
+	 * Indica la fecha límite en que un trabajo puede ser entregado antes de que se considere como no entregado
+	 */
 	LocalDate fechaLimite;
+	/**
+	 * Atributo fechaQueSeEntrego
+	 * Indica la fecha en que el alumno entregó el trabajo
+	 */
 	LocalDate fechaQueSeEntrego;
+	/**
+	 * Atributo diasRestraso
+	 * Indica los días que se demoró el alumno en entregar la tarea
+	 */
 	int diasRetraso;
 	boolean estadoEntrega=false;
 	
 	//CONSTRUCTORES
+	/**
+	 * Constructor para instanciar un trabajo sin ninguna fecha
+	 * @param idTrabajo
+	 */
 	public Trabajo (int idTrabajo) {
 		this.idTrabajo=idTrabajo;
 	}
-	
+	/**
+	 * Constructor
+	 * @param idTrabajo Recibe id del trabajo
+	 * @param fechaDeEntrega Recibe la fecha que debe ser entregado el trabajo
+	 */
 	public Trabajo (int idTrabajo, String fechaDeEntrega) {
 		this.idTrabajo=idTrabajo;
 		this.fechaDeEntrega=LocalDate.parse(fechaDeEntrega, DateTimeFormatter.ofPattern("d/M/yyyy"));
@@ -76,45 +115,94 @@ public class Trabajo {
 	public int getDiasRetraso() {
 		return diasRetraso;
 	}
-
+	/**
+	 * 
+	 * @return Devuelve un valor de tipo string diciendo el estado del trabajo: "Entregado" o "No entregado"
+	 */
+	public String getEstadoEntrega() {
+		if (estadoEntrega) {
+			return "Entregado";
+		}
+		else return "No entregado";
+	}
+	/**
+	 * 
+	 * @return Devuelve un valor booleano indicando si el estado de entrega es "false" o "true"
+	 */
 	public boolean isEstadoEntrega() {
 		return estadoEntrega;
 	}
 
 	//SETTERS
+	/**
+	 * 
+	 * @param fechaDeEntrega Recibe un String de la fecha de entrega que luego se convertirá a LocalDate en el formato indicado ("d/M/yyyy")
+	 */
 	public void setFechaDeEntrega(String fechaDeEntrega) {
 		this.fechaDeEntrega = LocalDate.parse(fechaDeEntrega, DateTimeFormatter.ofPattern("d/M/yyyy"));
 	}
+	
+	/**
+	 * 
+	 * @param fechaQueSeEntrego Recibe un String de la fecha que se entregó en trabajo, que luego se convertirá a LocalDate
+	 */
+	public void setFechaQueSeEntrego(String fechaQueSeEntrego) {
+		this.fechaQueSeEntrego = LocalDate.parse(fechaQueSeEntrego, DateTimeFormatter.ofPattern("d/M/yyyy"));
+		setEstadoEntrega();
+	}
 
-	public void setFechaQueSeEntrego(LocalDate fechaQueSeEntrego) {
-		this.fechaQueSeEntrego = fechaQueSeEntrego;
-		int count = (int) ChronoUnit.DAYS.between(fechaDeEntrega,this.fechaQueSeEntrego); //ChronoUnit.DAYS.between COMPARA DOS FECHAS Y DEVUELVE EN ESTE
-																						  //CASO LOS DIÁS QUE HAY ENTRE ESAS DOS FECHAS. SIN EMBARGO
-																						  //DEVUELVE UN VALOR TIPO DOUBLE, POR ESO SE HAY QUE CONVERTIRLO EN INT
-		diasRetraso=count;
-		if (count>5) {
+	/**
+	 * Setter que según los diás de diferencia entre la fecha de entrega y la fecha que se entregó el trabajo,
+	 * indicará si el estado de entrega es false (indicando que no se entregó), o true (indicando que sí se entregó) 
+	 */
+	public void setEstadoEntrega() {
+		
+		int count = (int) ChronoUnit.DAYS.between(fechaDeEntrega,fechaQueSeEntrego);
+		if (count>=0) {
+			diasRetraso=count;
+		}
+		else diasRetraso=0;
+		
+		if (count>diasRetrasoLimite) {
 			estadoEntrega=false;
 		}
-	}
-
-	/*public void setDiasRetraso(int diasRetraso) {		//BORRAR ESTE SETER SI AL FINAL NO SE VA USAR
-		this.diasRetraso = diasRetraso;
-	}*/
-
-	public void setEstadoEntrega(boolean estadoEntrega) {
-		this.estadoEntrega = estadoEntrega;
-	}
+		else estadoEntrega=true;
+		}
 	
 	//METODOS PRINT
+	public void generarFecha() {
+		int temp=r.nextInt(3);
+		switch (temp) {
+		case 0:
+			fechaQueSeEntrego=fechaDeEntrega;
+			break;
+		case 1:
+			fechaQueSeEntrego=fechaDeEntrega.plusDays(diasRetrasoLimite+2);
+			break;
+		case 2:
+			fechaQueSeEntrego=fechaDeEntrega.plusDays(diasRetrasoLimite-2);
+			break;
+		}
+		setEstadoEntrega();
+	}
+	
 	public String printFechaDeEntrega() {
-		return fechaDeEntrega.format(esDateFormat);
+		return fechaDeEntrega.format(espDateFormat);
 	}
 	public String printFechaQueSeEntrego() {
-		return fechaQueSeEntrego.format(esDateFormat);
+		return fechaQueSeEntrego.format(espDateFormat);
 	}
 	public String printFechaLimite() {
-		return fechaLimite.format(esDateFormat);
+		return fechaLimite.format(espDateFormat);
 	}
+
+	@Override
+	public String toString() {
+		return "Trabajo Nº " + idTrabajo + ": Fecha a presentar= " + printFechaDeEntrega() + ", Fecha Límite= " + printFechaLimite()
+				+ ", Fecha que se entregó=" + printFechaQueSeEntrego() + ", Dias de retraso=" + diasRetraso + ", Estado de entrega ="
+				+ getEstadoEntrega();
+	}
+	
 	
 	
 	
