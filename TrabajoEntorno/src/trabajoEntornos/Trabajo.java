@@ -53,7 +53,7 @@ public class Trabajo {
 	 * Atributo diasRetrasoLimite
 	 * Almacena el número de días máximo que un alumno puede atrasarse en entregar un trabajo
 	 */
-	private final int diasRetrasoLimite=5;
+	private static final int DIAS_DE_RETRASO_LIMITE=5;
 	/**
 	 * Atributo fechaDeEntrega
 	 * Indica la fecha en que el trabajo debe de estar entregado
@@ -92,7 +92,7 @@ public class Trabajo {
 	public Trabajo (int idTrabajo, String fechaDeEntrega) {
 		this.idTrabajo=idTrabajo;
 		this.fechaDeEntrega=LocalDate.parse(fechaDeEntrega, DateTimeFormatter.ofPattern("d/M/yyyy"));
-		fechaLimite=this.fechaDeEntrega.plusDays(diasRetrasoLimite); //.plusDays sirve para sumar días. Solo recibe valores tipo int
+		fechaLimite=this.fechaDeEntrega.plusDays(DIAS_DE_RETRASO_LIMITE); //.plusDays sirve para sumar días. Solo recibe valores tipo int
 	}
 	
 	//GETTERS
@@ -163,7 +163,7 @@ public class Trabajo {
 		}
 		else diasRetraso=0;
 		
-		if (count>diasRetrasoLimite) {
+		if (count>DIAS_DE_RETRASO_LIMITE) {
 			estadoEntrega=false;
 		}
 		else estadoEntrega=true;
@@ -180,10 +180,10 @@ public class Trabajo {
 			fechaQueSeEntrego=fechaDeEntrega;
 			break;
 		case 1:
-			fechaQueSeEntrego=fechaDeEntrega.plusDays(diasRetrasoLimite+2);
+			fechaQueSeEntrego=fechaDeEntrega.plusDays(DIAS_DE_RETRASO_LIMITE+2);
 			break;
 		case 2:
-			fechaQueSeEntrego=fechaDeEntrega.plusDays(diasRetrasoLimite-2);
+			fechaQueSeEntrego=fechaDeEntrega.plusDays(DIAS_DE_RETRASO_LIMITE-2);
 			break;
 		}
 		setEstadoEntrega();

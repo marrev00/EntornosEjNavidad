@@ -21,7 +21,7 @@ public class ExamenTest extends Examen {
 	 * Atributo preguntasTest.
 	 * Almacena el número de preguntas que tiene el examen. No se puede cambiar de valor
 	 */
-	protected final static int preguntasTest=30;
+	protected final static int PREGUNTAS_TEST=30;
 	
 	//CONSTRUCTORES
 	/**
@@ -51,7 +51,7 @@ public class ExamenTest extends Examen {
 	 * @param aciertos recibirá el número de preguntas acertadas.
 	 */
 	public void setAciertos(int aciertos) {
-		if (aciertos<=preguntasTest&&aciertos>=0) {
+		if (aciertos<=PREGUNTAS_TEST&&aciertos>=0) {
 			this.aciertos=aciertos;
 		}
 		else System.out.println("Valor fuera del limite");
@@ -61,7 +61,7 @@ public class ExamenTest extends Examen {
 	 * @param fallos recibirá el número de preguntas fallidas.
 	 */
 	public void setFallos(int fallos) {
-		if (fallos<=(preguntasTest-aciertos)&&fallos>=0) {
+		if (fallos<=(PREGUNTAS_TEST-aciertos)&&fallos>=0) {
 			this.fallos=fallos;
 		}
 		else System.out.println("Valor fuera del limite");
@@ -87,7 +87,7 @@ public class ExamenTest extends Examen {
 	 * @return Devolverá el número de preguntas en total que tienen los exámenes de tipo test
 	 */
 	public static int getPreguntasTest() {
-		return preguntasTest;
+		return PREGUNTAS_TEST;
 	}
 	//METODOS
 	
@@ -101,7 +101,7 @@ public class ExamenTest extends Examen {
 		if (fallos>=3) {
 		resta=fallos/3;
 		}
-		newNota=((aciertos-resta)*10)/preguntasTest;
+		newNota=((aciertos-resta)*10)/PREGUNTAS_TEST;
 		setNota(newNota);
 	}
 	/**
@@ -111,7 +111,7 @@ public class ExamenTest extends Examen {
 		int randomAciertos=r.nextInt(31);
 		int randomFallos=0;
 		if (randomAciertos<30) {
-			int maxFallos=(preguntasTest-randomAciertos)+1;
+			int maxFallos=(PREGUNTAS_TEST-randomAciertos)+1;
 			randomFallos=r.nextInt(maxFallos);
 		}
 		

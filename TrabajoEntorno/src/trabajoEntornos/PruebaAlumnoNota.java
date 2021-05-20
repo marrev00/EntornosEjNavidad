@@ -2,6 +2,7 @@ package trabajoEntornos;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import org.junit.jupiter.api.AfterAll;
@@ -26,27 +27,7 @@ class PruebaAlumnoNota {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		int numEntero=r.nextInt(11);
-		double newNota;
-		if (numEntero<10) {
-			int numDecimal=r.nextInt(999);
-			String tempN = numEntero+"."+numDecimal;
-			newNota= Double.parseDouble(tempN);
-		}
-		else newNota=numEntero;
-		System.out.println("Nota examen clásico: "+newNota);
-		double n=newNota+2.1;
-		System.out.println(n);
 		
-		//generador notas test
-		int randomAciertos=r.nextInt(31);
-		int randomFallos=0;
-		if (randomAciertos<30) {
-			int maxFallos=(30-randomAciertos)+1;
-			randomFallos=r.nextInt(maxFallos);
-		}
-		System.out.println("Aciertos test: "+randomAciertos);
-		System.out.println("Fallos test: "+randomFallos);
 	}
 
 	@AfterEach
@@ -56,7 +37,37 @@ class PruebaAlumnoNota {
 
 	@Test
 	void test() {
-		fail("Not yet implemented");
+		
+		
+		
+			double notaFinal=0;
+			boolean trabajosEntregados=true;
+			int diasRetrasoTotal=10;
+			ArrayList <Double> examenes = new ArrayList ();
+			examenes.add(5.0);
+			examenes.add(5.0);
+			examenes.add(4.0);
+			examenes.add(6.0);
+			examenes.add(5.0);
+			double notaCalc=0;
+			boolean trabajosPresentados=true;
+			for(int i=0;i<examenes.size();i++) {
+				notaCalc+=examenes.get(i);
+			}
+			
+			if (trabajosPresentados==true) {
+				double restTrabajosDiasAtrasados=diasRetrasoTotal*0.1;
+				
+				notaFinal=notaCalc/5-restTrabajosDiasAtrasados;
+				notaFinal=Math.round(notaFinal*100)/100;
+			}
+			else notaFinal=3;
+			System.out.println(notaFinal);
+			
+		
+		
+		assertEquals(4.0, notaFinal);
+		
 	}
 
 }

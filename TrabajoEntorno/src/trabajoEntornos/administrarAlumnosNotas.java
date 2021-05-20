@@ -1,6 +1,7 @@
 package trabajoEntornos;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class administrarAlumnosNotas {
@@ -79,11 +80,17 @@ public class administrarAlumnosNotas {
 									case 1,2,3: //Examenes Clásicos
 										
 										System.out.println("Introduce nota");
+									try {
 										double nota=tec.nextDouble();
 										if (nota>=0||nota<=10) {
 											listaAlumnos.get(i).getExamenAlumno(id).setNota(nota);
 										}
 										else System.out.println("Error: Introduce un valor de 0 a 10");
+									}
+									catch (InputMismatchException e) {
+										System.out.println("Valor no reconocido, introduzca un número de 0 a 10");
+									}
+										
 										break;
 										
 									case 4,5: //Examenes Test
@@ -137,7 +144,7 @@ public class administrarAlumnosNotas {
 								System.out.println("selecciona id de trabajo");
 								int idTr=tec.nextInt();
 								tec.nextLine();
-								System.out.println("¿Fecha en la que se entrego? (d/M/yyyy)");
+								System.out.println("¿Fecha en la que se entrego? (dd/MM/yyyy)");
 								String fecha=tec.nextLine();
 								listaAlumnos.get(i).setTrabajoEntrega(idTr, fecha);
 								System.out.println("Trabajo añadido");
