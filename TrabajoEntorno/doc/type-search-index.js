@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"trabajoEntornos","l":"administrarAlumnosNotas"},{"l":"All Classes","url":"allclasses-index.html"},{"p":"trabajoEntornos","l":"Alumno"},{"p":"trabajoEntornos","l":"Examen"},{"p":"trabajoEntornos","l":"ExamenClasico"},{"p":"trabajoEntornos","l":"ExamenTest"},{"p":"trabajoEntornos","l":"PruebaAlumnoNota"},{"p":"trabajoEntornos","l":"Trabajo"}]

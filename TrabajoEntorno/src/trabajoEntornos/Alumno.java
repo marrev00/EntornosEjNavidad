@@ -107,7 +107,7 @@ public class Alumno {
 	//SETTERS
 	/**
 	 * 
-	 * @param nombre recibe un String con el nombre que queremos poner al alumnos
+	 * @param nombre Recibe un String con el nombre que queremos poner al alumnos
 	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
@@ -117,7 +117,7 @@ public class Alumno {
 	/**
 	 * Metodo para añadir un examen al array "examenes"
 	 * @param exam Recibe un objeto de tipo Examen
-	 * @param id Recivbe una id
+	 * @param index Recibe una id
 	 * @deprecated
 	 */
 	public void setExamen (Examen exam, int index) {

@@ -79,7 +79,7 @@ public class Trabajo {
 	//CONSTRUCTORES
 	/**
 	 * Constructor para instanciar un trabajo sin ninguna fecha
-	 * @param idTrabajo
+	 * @param idTrabajo Recibe el id del trabajo
 	 */
 	public Trabajo (int idTrabajo) {
 		this.idTrabajo=idTrabajo;
@@ -169,7 +169,10 @@ public class Trabajo {
 		else estadoEntrega=true;
 		}
 	
-	//METODOS PRINT
+	//METODOS Y PRINT
+	/**
+	 * Metodo para generar una fecha "aleatoriamente"
+	 */
 	public void generarFecha() {
 		int temp=r.nextInt(3);
 		switch (temp) {

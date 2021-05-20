@@ -17,7 +17,7 @@ public class ExamenClasico extends Examen{	//Pensando en borrar esta clase ya qu
 	/**
 	 * Constructor para instanciar un objeto de tipo ExamenClasico con su respectiva nota.
 	 * @param id Recibe en id del examen.
-	 * @param nota
+	 * @param nota Recibe la nota del examen
 	 */
 	public ExamenClasico (int id, double nota) {
 		super(id, nota);
